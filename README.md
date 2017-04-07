@@ -36,3 +36,7 @@ intra-mart Accel-Platform 2015 Summerで動作確認
 Windowsの場合、C:/resin*/log/　以下にあることを想定します。
 
 
+
+# References
+
+- [filebeatでmoduleを書いてみた話。intra-martのログをElasticsearchに入れる](http://qiita.com/tsgkdt/items/14d2fadc7e457c2c3646)
