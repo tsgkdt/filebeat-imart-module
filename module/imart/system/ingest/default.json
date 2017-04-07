@@ -1,0 +1,59 @@
+{
+  "description": "Pipeline for parsing imart system logs. Requires ingest_user_agent plugin.",
+  "processors": [
+    {
+      "grok": {
+        "field": "message",
+        "patterns": [
+          "\\[%{TIMESTAMP_ISO8601:imart.system.timestamp}\\]\t\\[%{DATA:imart.thread}\\]\t%{LOGLEVEL:imart.loglevel}[\\s]*?\t%{NOTSPACE:imart.system.logger}\t%{DATA:imart.tenant_id}\t%{WORD:imart.system.logid}\t%{DATA:imart.requestid}\t-\t\\[%{DATA:imart.system.messagecode}\\]\t%{DATA:imart.system.message}\n",
+          "\\[%{TIMESTAMP_ISO8601:imart.system.timestamp}\\]\t\\[%{DATA:imart.thread}\\]\t%{LOGLEVEL:imart.loglevel}[\\s]*?\t%{NOTSPACE:imart.system.logger}\t(?<imart.tenant_id>(|[^\t]*))\t(?<imart.system.logid>(|[^\t]*))\t(?<imart.requestid>(|[^\t]*))\t-\t\\[(?<imart.system.messagecode>(|[^\t]*))\\]\t(?<imart.system.message>(|[^\n]*))"
+        ],
+        "ignore_missing": true
+      }
+    },
+    {
+      "remove": {
+        "field": "message"
+      }
+    },
+    {
+      "rename": {
+        "field": "@timestamp",
+        "target_field": "read_timestamp"
+      }
+    },
+    {
+      "date": {
+        "field": "imart.system.timestamp",
+        "target_field": "@timestamp",
+        "formats": ["yyyy-MM-dd HH:mm:ss.SSS"],
+        "timezone": "Asia/Tokyo"
+      }
+    },
+    {
+      "remove": {
+        "field": "imart.system.timestamp"
+      }
+    },
+    {
+      "trim": {
+        "field": "imart.tenant_id",
+        "ignore_missing": true
+      }
+    },
+    {
+      "append": {
+        "field": "imart.log_type",
+        "value": "system"
+      }
+    }
+  ],
+  "on_failure": [
+    {
+      "set": {
+        "field": "error",
+        "value": "{{ _ingest.on_failure_message }}"
+      }
+    }
+  ]
+}

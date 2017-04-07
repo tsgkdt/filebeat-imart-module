@@ -1,0 +1,24 @@
+== imart module
+
+intra-martの出力するログをfilebeatで取得するモジュール
+
+[float]
+
+=== Compatibility
+
+intra-mart Accel-Platform 2015 Summerで動作確認
+
+[float]
+=== Dashboard
+
+まだ作ってません
+
+
+[float]
+=== logs fileset settings
+
+==== var.paths
+
+Windowsの場合、C:/resin*/log/　以下にあることを想定します。
+Linuxの場合、特に書いてませんので手動で設定してください。
+

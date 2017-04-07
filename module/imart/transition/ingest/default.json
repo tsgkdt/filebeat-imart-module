@@ -1,0 +1,87 @@
+{
+  "description": "Pipeline for parsing imart transition logs. Requires ingest_user_agent plugin.",
+  "processors": [
+    {
+      "grok": {
+        "field": "message",
+        "patterns": [
+          "\\[%{TIMESTAMP_ISO8601:imart.transition.timestamp}\\]\t\\[%{DATA:imart.thread}\\]\t%{NUMBER:imart.transition.logsequence}\t%{LOGLEVEL:imart.transition.loglevel}[\\s]*?%{NOTSPACE:imart.transition.logger}\t%{DATA:imart.transition.tenantid}\t%{WORD:imart.transition.logid}\t-\t%{WORD:imart.transition.logtype}\t%{IPORHOST:imart.transition.remote_address}\t%{IPORHOST:imart.transition.remote_host}\t%{DATA:imart.user_id}\t%{DATA:imart.transition.sessionid}\t%{DATA:imart.transition.pagenext}\t%{NUMBER:imart.transition.time_response}\t%{DATA:imart.transition.exceptionname}\t%{DATA:imart.transition.exceptionmessage}\t%{DATA:imart.transition.pageprevious}\t%{DATA:imart.requestid}",
+          "\\[%{TIMESTAMP_ISO8601:imart.transition.timestamp}\\]\t\\[%{DATA:imart.thread}\\]\t%{NUMBER:imart.transition.logsequence}\t%{LOGLEVEL:imart.transition.loglevel}[\\s]*?%{NOTSPACE:imart.transition.logger}\t%{DATA:imart.transition.tenantid}\t%{WORD:imart.transition.logid}\t-\t%{WORD:imart.transition.logtype}\t\\[%{IPORHOST:imart.transition.remote_address}\\]\t\\[%{IPORHOST:imart.transition.remote_host}\\]\t%{DATA:imart.user_id}\t%{DATA:imart.transition.sessionid}\t%{DATA:imart.transition.pagenext}\t%{NUMBER:imart.transition.time_response}\t%{DATA:imart.transition.exceptionname}\t%{DATA:imart.transition.exceptionmessage}\t%{DATA:imart.transition.pageprevious}\t%{DATA:imart.requestid}",
+          "\\[%{TIMESTAMP_ISO8601:imart.transition.timestamp}\\]\t\\[%{DATA:imart.thread}\\]\t%{NUMBER:imart.transition.logsequence}\t%{LOGLEVEL:imart.transition.loglevel}[\\s]*?%{NOTSPACE:imart.transition.logger}\t%{DATA:imart.transition.tenantid}\t%{DATA:imart.transition.logid}\t-\t%{DATA:imart.transition.logtype}\t\t\t%{DATA:imart.user_id}\t%{DATA:imart.transition.sessionid}\t%{DATA:imart.transition.pagenext}\t%{NUMBER:imart.transition.time_response}\t%{DATA:imart.transition.exceptionname}\t%{DATA:imart.transition.exceptionmessage}\t%{DATA:imart.transition.pageprevious}\t%{DATA:imart.requestid}"
+        ],
+        "ignore_missing": true
+      }
+    },
+    {
+      "remove": {
+        "field": "message"
+      }
+    },
+    {
+      "rename": {
+        "field": "@timestamp",
+        "target_field": "read_timestamp"
+      }
+    },
+    {
+      "date": {
+        "field": "imart.transition.timestamp",
+        "target_field": "@timestamp",
+        "formats": ["yyyy-MM-dd HH:mm:ss.SSS"],
+        "timezone": "Asia/Tokyo"
+      }
+    },
+    {
+      "remove": {
+        "field": "imart.transition.timestamp"
+      }
+    },
+    {
+      "rename": {
+        "field": "imart.transition.tenantid",
+        "target_field": "imart.tenant_id",
+        "ignore_missing": true
+      }
+    },
+    {
+      "trim": {
+        "field": "imart.tenant_id",
+        "ignore_missing": true
+      }
+    },
+    {
+      "rename": {
+        "field": "imart.transition.remote_address",
+        "target_field": "imart.remote_address",
+        "ignore_missing": true
+      }
+    },
+    {
+      "append": {
+        "field": "imart.log_type",
+        "value": "transition"
+      }
+    },
+    {
+      "user_agent": {
+        "field": "resin.access.agent",
+        "target_field": "resin.access.user_agent",
+        "ignore_failure": true
+      }
+    },
+    {
+      "remove": {
+        "field": "resin.access.agent",
+        "ignore_failure": true
+      }
+    }
+  ],
+  "on_failure": [
+    {
+      "set": {
+        "field": "error",
+        "value": "{{ _ingest.on_failure_message }}"
+      }
+    }
+  ]
+}

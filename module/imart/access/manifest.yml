@@ -1,0 +1,17 @@
+module_version: 1.0
+
+var:
+  - name: paths
+    default:
+      - /var/log/resin/access.log*
+    os.darwin:
+      - /usr/log/resin/access.log*
+    os.windows:
+      - "C:/resin*/log/access.log*"
+
+ingest_pipeline: ingest/default.json
+prospector: config/access.yml
+
+requires.processors:
+- name: user_agent
+  plugin: ingest-user-agent

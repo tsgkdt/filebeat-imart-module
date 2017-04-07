@@ -1,0 +1,13 @@
+module_version: 1.0
+
+var:
+  - name: paths
+    default:
+      - /var/log/resin/platform/system-*.log
+    os.darwin:
+      - /var/log/resin/platform/system-*.log
+    os.windows:
+      - "C:/resin*/log/platform/system-*.log"
+
+ingest_pipeline: ingest/default.json
+prospector: config/system.yml
