@@ -4,7 +4,7 @@ intra-martの出力するログをfilebeatで取得するモジュール
 
 | module | version |
 |-------|----------|
-| filebeat | 5.3.0 |
+| filebeat | 6.0.0-beta2 |
 
 
 # Dockerfileについて
@@ -34,7 +34,6 @@ intra-mart Accel-Platform 2015 Summerで動作確認
 ### var.paths
 
 Windowsの場合、C:/resin*/log/　以下にあることを想定します。
-
 
 
 # References
