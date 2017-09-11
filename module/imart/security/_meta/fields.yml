@@ -1,0 +1,14 @@
+- name: security
+  type: group
+  description: >
+    Contains fields for the intra-mart security logs.
+  fields:
+    - name: id
+      type: group
+      fields:
+        - name: account 
+          type: keyword
+          description: security.id.account
+        - name: usertype
+          type: keyword
+          description: security.id.usertype

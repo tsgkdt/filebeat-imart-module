@@ -5,7 +5,7 @@
       "grok": {
         "field": "message",
         "patterns": [
-          "log\\.generating\\.time=%{DATA:imart.exception.timestamp}\nlog\\.level=%{LOGLEVEL:imart.exception.loglevel}\nlog\\.logger\\.name=%{DATA:imart.exception.loggername}\nlog\\.id=%{DATA:imart.exception.logid}\nlog\\.thread\\.id=%{DATA:imart.exception.threadid}\nlog\\.thread\\.group=%{DATA:imart.exception.threadgroup}\nlog\\.message=%{GREEDYDATA:imart.exception.message}\n{1,3}(?<imart.exception.stacktrace>([^\n\r]+[\n\r]{1,2})*)"
+          "log\\.generating\\.time=%{DATA:imart.exception.timestamp}\nlog\\.level=%{LOGLEVEL:imart.log.level}\nlog\\.logger\\.name=%{DATA:imart.log.logger}\nlog\\.id=%{DATA:imart.log.id}\nlog\\.thread\\.id=%{DATA:imart.exception.threadid}\nlog\\.thread\\.group=%{DATA:imart.exception.threadgroup}\nlog\\.message=%{GREEDYDATA:imart.exception.message}\n{1,3}(?<imart.exception.stacktrace>([^\n\r]+[\n\r]{1,2})*)"
         ],
         "ignore_missing": true
       }

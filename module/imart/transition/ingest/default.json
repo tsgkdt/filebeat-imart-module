@@ -5,9 +5,9 @@
       "grok": {
         "field": "message",
         "patterns": [
-          "\\[%{TIMESTAMP_ISO8601:imart.transition.timestamp}\\]\t\\[%{DATA:imart.thread}\\]\t%{NUMBER:imart.transition.logsequence}\t%{LOGLEVEL:imart.transition.loglevel}[\\s]*?%{NOTSPACE:imart.transition.logger}\t%{DATA:imart.transition.tenantid}\t%{WORD:imart.transition.logid}\t-\t%{WORD:imart.transition.logtype}\t%{IPORHOST:imart.transition.remote_address}\t%{IPORHOST:imart.transition.remote_host}\t%{DATA:imart.user_id}\t%{DATA:imart.transition.sessionid}\t%{DATA:imart.transition.pagenext}\t%{NUMBER:imart.transition.time_response}\t%{DATA:imart.transition.exceptionname}\t%{DATA:imart.transition.exceptionmessage}\t%{DATA:imart.transition.pageprevious}\t%{DATA:imart.requestid}",
-          "\\[%{TIMESTAMP_ISO8601:imart.transition.timestamp}\\]\t\\[%{DATA:imart.thread}\\]\t%{NUMBER:imart.transition.logsequence}\t%{LOGLEVEL:imart.transition.loglevel}[\\s]*?%{NOTSPACE:imart.transition.logger}\t%{DATA:imart.transition.tenantid}\t%{WORD:imart.transition.logid}\t-\t%{WORD:imart.transition.logtype}\t\\[%{IPORHOST:imart.transition.remote_address}\\]\t\\[%{IPORHOST:imart.transition.remote_host}\\]\t%{DATA:imart.user_id}\t%{DATA:imart.transition.sessionid}\t%{DATA:imart.transition.pagenext}\t%{NUMBER:imart.transition.time_response}\t%{DATA:imart.transition.exceptionname}\t%{DATA:imart.transition.exceptionmessage}\t%{DATA:imart.transition.pageprevious}\t%{DATA:imart.requestid}",
-          "\\[%{TIMESTAMP_ISO8601:imart.transition.timestamp}\\]\t\\[%{DATA:imart.thread}\\]\t%{NUMBER:imart.transition.logsequence}\t%{LOGLEVEL:imart.transition.loglevel}[\\s]*?%{NOTSPACE:imart.transition.logger}\t%{DATA:imart.transition.tenantid}\t%{DATA:imart.transition.logid}\t-\t%{DATA:imart.transition.logtype}\t\t\t%{DATA:imart.user_id}\t%{DATA:imart.transition.sessionid}\t%{DATA:imart.transition.pagenext}\t%{NUMBER:imart.transition.time_response}\t%{DATA:imart.transition.exceptionname}\t%{DATA:imart.transition.exceptionmessage}\t%{DATA:imart.transition.pageprevious}\t%{DATA:imart.requestid}"
+          "\\[%{TIMESTAMP_ISO8601:imart.transition.timestamp}\\]\t\\[%{DATA:imart.thread}\\]\t%{NUMBER:imart.log.sequence}\t%{LOGLEVEL:imart.log.level}[\\s]*?%{NOTSPACE:imart.log.logger}\t%{DATA:imart.transition.tenantid}\t%{WORD:imart.log.id}\t-\t%{WORD:imart.transition.logtype}\t%{IPORHOST:imart.transition.remote_address}\t%{IPORHOST:imart.transition.remote_host}\t%{DATA:imart.user_id}\t%{DATA:imart.sessionid}\t%{DATA:imart.transition.pagenext}\t%{NUMBER:imart.transition.time_response}\t%{DATA:imart.transition.exceptionname}\t%{DATA:imart.transition.exceptionmessage}\t%{DATA:imart.transition.pageprevious}\t%{DATA:imart.requestid}",
+          "\\[%{TIMESTAMP_ISO8601:imart.transition.timestamp}\\]\t\\[%{DATA:imart.thread}\\]\t%{NUMBER:imart.log.sequence}\t%{LOGLEVEL:imart.log.level}[\\s]*?%{NOTSPACE:imart.log.logger}\t%{DATA:imart.transition.tenantid}\t%{WORD:imart.log.id}\t-\t%{WORD:imart.transition.logtype}\t\\[%{IPORHOST:imart.transition.remote_address}\\]\t\\[%{IPORHOST:imart.transition.remote_host}\\]\t%{DATA:imart.user_id}\t%{DATA:imart.sessionid}\t%{DATA:imart.transition.pagenext}\t%{NUMBER:imart.transition.time_response}\t%{DATA:imart.transition.exceptionname}\t%{DATA:imart.transition.exceptionmessage}\t%{DATA:imart.transition.pageprevious}\t%{DATA:imart.requestid}",
+          "\\[%{TIMESTAMP_ISO8601:imart.transition.timestamp}\\]\t\\[%{DATA:imart.thread}\\]\t%{NUMBER:imart.log.sequence}\t%{LOGLEVEL:imart.log.level}[\\s]*?%{NOTSPACE:imart.log.logger}\t%{DATA:imart.transition.tenantid}\t%{DATA:imart.log.id}\t-\t%{DATA:imart.transition.logtype}\t\t\t%{DATA:imart.user_id}\t%{DATA:imart.sessionid}\t%{DATA:imart.transition.pagenext}\t%{NUMBER:imart.transition.time_response}\t%{DATA:imart.transition.exceptionname}\t%{DATA:imart.transition.exceptionmessage}\t%{DATA:imart.transition.pageprevious}\t%{DATA:imart.requestid}"
         ],
         "ignore_missing": true
       }
@@ -79,7 +79,7 @@
   "on_failure": [
     {
       "set": {
-        "field": "error",
+        "field": "grok_parse_error",
         "value": "{{ _ingest.on_failure_message }}"
       }
     }

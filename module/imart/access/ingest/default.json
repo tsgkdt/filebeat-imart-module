@@ -5,7 +5,7 @@
       "grok": {
         "field": "message",
         "patterns": [
-          "%{IPORHOST:imart.access.remote_ip} - %{DATA:imart.access.user_name} \\[%{HTTPDATE:imart.access.time}\\] \"%{WORD:imart.access.method} %{DATA:imart.access.url} HTTP/%{NUMBER:imart.access.http_version}\" %{NUMBER:imart.access.response_code} %{DATA:imart.access.body_sent.bytes} (\"%{DATA:imart.access.referrer}\")?( \"%{DATA:imart.access.agent}\")",
+          "%{IPORHOST:imart.access.remote_ip} - %{DATA:imart.access.user_name} \\[%{HTTPDATE:imart.access.time}\\] \"%{WORD:imart.access.method} %{DATA:imart.access.url} [\\w]+/%{NUMBER:imart.access.http_version}\" %{NUMBER:imart.access.response_code} %{DATA:imart.access.body_sent.bytes} (\"%{DATA:imart.access.referrer}\")?( \"%{DATA:imart.access.agent}\")",
           "\\[%{IPORHOST:imart.access.remote_ip}\\] - %{DATA:imart.access.user_name} \\[%{HTTPDATE:imart.access.time}\\] \"%{WORD:imart.access.method} %{DATA:imart.access.url} HTTP/%{NUMBER:imart.access.http_version}\" %{NUMBER:imart.access.response_code} %{DATA:imart.access.body_sent.bytes} (\"%{DATA:imart.access.referrer}\")?( \"%{DATA:imart.access.agent}\")"
         ],
         "ignore_missing": true
@@ -72,7 +72,7 @@
   "on_failure": [
     {
       "set": {
-        "field": "error",
+        "field": "grok_parse_error",
         "value": "{{ _ingest.on_failure_message }}"
       }
     }

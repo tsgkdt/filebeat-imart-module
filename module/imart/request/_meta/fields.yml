@@ -1,0 +1,25 @@
+- name: request
+  type: group
+  description: >
+    Contains fields for the intra-mart request logs.
+  fields:
+    - name: id
+      type: keyword
+    - name: method
+      type: keyword
+      description: HTTP method
+    - name: url
+      type: text
+      desciption: access url
+    - name: querystring
+      type: text
+      description: クエリ文字列
+    - name: referer
+      type: text
+      description: リクエスト発生元URL
+    - name: page_time
+      type: long
+      description: ページ処理時間。ミリ秒で出力されます。
+    - name: accept_time
+      type: date
+      description: リクエストの受付時間

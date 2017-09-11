@@ -1,0 +1,57 @@
+- name: access
+  type: group
+  description: アクセスログ関連
+  fields:
+    - name: body_sent
+      type: group
+      fields:
+        - name: bytes 
+          type: long
+          description: 送信バイト数
+    - name: http_version  
+      type: keyword
+      description: HTTP Version
+    - name: method  
+      type: keyword
+      description: HTTPメソッド名
+    - name: referrer  
+      type: keyword
+      description: referrer
+    - name: remote_ip  
+      type: keyword
+      ignore_above: 1024
+      description: リモートIP
+    - name: response_code  
+      type: long
+      description: HTTPステータスコード
+    - name: url  
+      type: keyword
+      description: アクセス対象のURL
+    - name: user_agent.device
+      type: keyword
+      ignore_above: 1024
+    - name: user_agent
+      type: group
+      fields:
+        - name: major
+          type: long
+        - name: minor
+          type: long
+        - name: name
+          type: keyword
+          ignore_above: 1024
+        - name: os
+          type: keyword
+          ignore_above: 1024
+        - name: os_name
+          type: keyword
+          ignore_above: 1024
+        - name: patch
+          type: keyword
+          ignore_above: 1024
+        - name: device
+          type: keyword
+          ignore_above: 128
+    - name: user_name
+      type: keyword
+      ignore_above: 1024

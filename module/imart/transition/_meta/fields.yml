@@ -1,0 +1,29 @@
+- name: transition
+  type: group
+  description: Transitionログ関連
+  fields:
+    - name: exceptionmessage
+      type: text
+    - name: exceptionname
+      type: keyword
+      ignore_above: 1024
+    - name: logger
+      type: keyword
+      ignore_above: 1024
+    - name: logsequence 
+      type: keyword
+      ignore_above: 1024
+    - name: logtype
+      type: keyword
+      ignore_above: 1024
+    - name: pagenext
+      type: keyword
+      ignore_above: 1024
+    - name: pageprevious
+      type: keyword
+      ignore_above: 1024
+    - name: remote_host
+      type: keyword
+      ignore_above: 1024
+    - name: time_response
+      type: long

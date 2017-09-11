@@ -3,4 +3,6 @@ paths:
 {{ range $i, $path := .paths }}
  - {{$path}}
 {{ end }}
+encoding: shift-jis
 exclude_files: [".gz$"]
+include_lines: ["^\\["]

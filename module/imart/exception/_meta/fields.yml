@@ -1,0 +1,14 @@
+- name: exception
+  type: group
+  description: Exceptionログ関連
+  fields:
+    - name: message 
+      type: text
+    - name: stacktrace
+      type: text
+    - name: threadgroup
+      type: keyword
+      ignore_above: 1024
+    - name: threadid
+      type: keyword
+      ignore_above: 1024
