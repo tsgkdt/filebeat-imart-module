@@ -1,6 +1,6 @@
 FROM alpine:latest
 
-ENV BEATS_VERSION=5.3.0
+ENV BEATS_VERSION=6.0.0-beta2
 
 COPY module /tmp/module
 COPY filebeat.template.json /tmp/

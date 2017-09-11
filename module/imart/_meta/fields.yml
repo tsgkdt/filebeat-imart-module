@@ -1,179 +1,46 @@
-- key: imart
-  title: "imart"
-  description: >
-    Module for parsing the intra-mart log files.
+- name: log
+  type: group
+  description: ログ関係
   fields:
-    - name: imart
+    - name: id
+      type: keyword
+    - name: level
+      type: keyword
+      description: ログレベル
+    - name: logger
+      type: keyword
+      description: Logger名
+    - name: sequence
+      type: long
+      description: LogSequence
+    - name: message
       type: group
-      description: >
-        Fields from the intra-mart log files.
       fields:
-        #---------------------------------------------------------
-        # common fields
-        #---------------------------------------------------------
-        - name: log_type
+        - name: code
           type: keyword
-          description: >
-            ログの発生元を識別する値
-        - name: loglevel
-          type: keyword
-          description: >
-            ログレベル（INFOやWARNINGなど）
-        - name: remote_address
-          type: keyword
-          description: アクセス元
-        - name: requestid
-          type: keyword
-          description: リクエストID
-        - name: tenant_id
-          type: keyword
-          description: テナントID
-        - name: thread
-          type: keyword
-          description: 実行スレッドID
-        - name: user_id
-          type: keyword
-          description: ユーザID
-        #---------------------------------------------------------
-        # system log fields
-        #---------------------------------------------------------
-        - name: system
-          type: group
-          description: システムログ関連
-          fields:
-            - name: logger
-              type: keyword
-              description: システムログの出力ロガー名
-            - name: logid
-              type: keyword
-              description: システムログID
-            - name: message
-              type: text
-              description: システムログのメッセージ
-            - name: messagecode
-              type: keyword
-              description: システムログのメッセージコード
-        #---------------------------------------------------------
-        # access log fields
-        #---------------------------------------------------------
-        - name: access
-          type: group
-          description: アクセスログ関連
-          fields:
-            - name: body_sent
-              type: group
-              fields:
-                - name: bytes 
-                  type: long
-                  description: 送信バイト数
-            - name: http_version  
-              type: keyword
-              description: HTTP Version
-            - name: method  
-              type: keyword
-              description: HTTPメソッド名
-            - name: referrer  
-              type: keyword
-              description: referrer
-            - name: remote_ip  
-              type: keyword
-              ignore_above: 1024
-              description: リモートIP
-            - name: response_code  
-              type: long
-              description: HTTPステータスコード
-            - name: url  
-              type: keyword
-              description: アクセス対象のURL
-            - name: user_agent.device
-              type: keyword
-              ignore_above: 1024
-            - name: user_agent
-              type: group
-              fields:
-                - name: major
-                  type: long
-                - name: minor
-                  type: long
-                - name: name
-                  type: keyword
-                  ignore_above: 1024
-                - name: os
-                  type: keyword
-                  ignore_above: 1024
-                - name: os_name
-                  type: keyword
-                  ignore_above: 1024
-                - name: patch
-                  type: keyword
-                  ignore_above: 1024
-            - name: user_name
-              type: keyword
-              ignore_above: 1024
-        #---------------------------------------------------------
-        # exception log fields
-        #---------------------------------------------------------
-        - name: exception
-          type: group
-          description: Exceptionログ関連
-          fields:
-            - name: loggername
-              type: keyword
-              ignore_above: 1024
-            - name: logid
-              type: keyword
-              ignore_above: 1024
-            - name: loglevel
-              type: keyword
-              ignore_above: 1024
-            - name: message 
-              type: text
-            - name: stacktrace
-              type: text
-            - name: threadgroup
-              type: keyword
-              ignore_above: 1024
-            - name: threadid
-              type: keyword
-              ignore_above: 1024
-        # ---------------------------------------------------------
-        # transition log fields
-        # ---------------------------------------------------------
-        - name: transition
-          type: group
-          description: Transitionログ関連
-          fields:
-            - name: exceptionmessage
-              type: text
-            - name: exceptionname
-              type: keyword
-              ignore_above: 1024
-            - name: logger
-              type: keyword
-              ignore_above: 1024
-            - name: logid
-              type: keyword
-              ignore_above: 1024
-            - name: loglevel
-              type: keyword
-              ignore_above: 1024
-            - name: logsequence 
-              type: keyword
-              ignore_above: 1024
-            - name: logtype
-              type: keyword
-              ignore_above: 1024
-            - name: pagenext
-              type: keyword
-              ignore_above: 1024
-            - name: pageprevious
-              type: keyword
-              ignore_above: 1024
-            - name: remote_host
-              type: keyword
-              ignore_above: 1024
-            - name: sessionid
-              type: keyword
-              ignore_above: 1024
-            - name: time_response
-              type: long
+          description: ログコード値
+        - name: value
+          type: text
+          description: ログテキスト値
+- name: log_type
+  type: keyword
+  description: >
+    ログの発生元を識別する値
+- name: remote_address
+  type: keyword
+  description: アクセス元
+- name: requestid
+  type: keyword
+  description: リクエストID
+- name: sessionid
+  type: keyword
+  description: セッションID
+- name: tenant_id
+  type: keyword
+  description: テナントID
+- name: thread
+  type: keyword
+  description: 実行スレッドID
+- name: user_id
+  type: keyword
+  description: ユーザID

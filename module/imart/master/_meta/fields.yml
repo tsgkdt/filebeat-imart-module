@@ -1,0 +1,18 @@
+- name: master
+  type: group
+  description: >
+    Contains fields for the intra-mart master update logs.
+  fields:
+    - name: transaction
+      type: group
+      fileds:
+        - name: id
+          type: keyword
+    - name: function
+      type: group
+      fileds:
+        - name: type
+          type: keyword  
+    - name: result
+      type: keyword
+      description: update result

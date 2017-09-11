@@ -1,0 +1,65 @@
+{
+  "description": "Pipeline for parsing imart master data update logs. Requires ingest_user_agent plugin.",
+  "processors": [
+    {
+      "grok": {
+        "field": "message",
+        "patterns": [
+          "\\[%{TIMESTAMP_ISO8601:imart.system.timestamp}\\]\t\\[%{DATA:imart.thread}\\]\t%{NOTSPACE:imart.log.logger}\t%{DATA:imart.tenant_id}\t%{WORD:imart.log.id}\t%{DATA:imart.requestid}\t%{DATA:imart.sessionid}\t%{DATA:imart.user_id}\t%{IPORHOST:imart.remote_ip}\t%{DATA:imart.master.transaction.id}\t%{DATA:imart.master.function.type}\t\\[%{DATA:imart.log.message.code}\\]\t%{DATA:imart.log.message.value}\t%{NOTSPACE:imart.master.result}",
+          "\\[%{TIMESTAMP_ISO8601:imart.system.timestamp}\\]\t\\[%{DATA:imart.thread}\\]\t%{NOTSPACE:imart.log.logger}\t%{DATA:imart.tenant_id}\t%{WORD:imart.log.id}\t%{DATA:imart.requestid}\t%{DATA:imart.sessionid}\t%{DATA:imart.user_id}\t%{IPORHOST:imart.remote_ip}\t%{DATA:imart.master.transaction.id}\t%{DATA:imart.master.function.type}\t\\[%{DATA:imart.log.message.code}\\]\t%{GREEDYDATA:imart.log.message.value}"
+        ],
+        "ignore_missing": true
+      }
+    },
+    {
+      "remove": {
+        "field": "message"
+      }
+    },
+    {
+      "rename": {
+        "field": "@timestamp",
+        "target_field": "read_timestamp"
+      }
+    },
+    {
+      "date": {
+        "field": "imart.system.timestamp",
+        "target_field": "@timestamp",
+        "formats": ["yyyy-MM-dd HH:mm:ss.SSS"],
+        "timezone": "Asia/Tokyo"
+      }
+    },
+    {
+      "remove": {
+        "field": "imart.system.timestamp"
+      }
+    },
+    {
+      "trim": {
+        "field": "imart.tenant_id",
+        "ignore_missing": true
+      }
+    },
+    {
+      "append": {
+        "field": "imart.log_type",
+        "value": "master"
+      }
+    },
+    {
+      "set": {
+        "field": "imart.log.level",
+        "value": "INFO"
+      }
+    }
+  ],
+  "on_failure": [
+    {
+      "set": {
+        "field": "grok_parse_error",
+        "value": "{{ _ingest.on_failure_message }}"
+      }
+    }
+  ]
+}

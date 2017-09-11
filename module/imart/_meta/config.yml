@@ -1,0 +1,30 @@
+- module: imart
+
+  access:
+    enabled: true
+    var.pipeline: with_plugins
+
+  master:
+    enabled: true
+    var.pipeline: with_plugins
+
+  request:
+    enabled: true
+    var.pipeline: with_plugins
+
+  transition:
+    enabled: true
+    var.pipeline: with_plugins
+
+  system:
+    enabled: true
+    var.pipeline: with_plugins
+
+  security:
+    enabled: true
+    var.pipeline: with_plugins
+
+  exception:
+    enabled: true
+    var.pipeline: with_plugins
+

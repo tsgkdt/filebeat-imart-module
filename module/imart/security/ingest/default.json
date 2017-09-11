@@ -1,12 +1,11 @@
 {
-  "description": "Pipeline for parsing imart system logs. Requires ingest_user_agent plugin.",
+  "description": "Pipeline for parsing imart security logs. Requires ingest_user_agent plugin.",
   "processors": [
     {
       "grok": {
         "field": "message",
         "patterns": [
-          "\\[%{TIMESTAMP_ISO8601:imart.system.timestamp}\\]\t\\[%{DATA:imart.thread}\\]\t%{LOGLEVEL:imart.log.level}[\\s]*?\t%{NOTSPACE:imart.log.logger}\t%{DATA:imart.tenant_id}\t%{WORD:imart.log.id}\t%{DATA:imart.requestid}\t-\t\\[%{DATA:imart.log.message.code}\\]\t%{DATA:imart.log.message.value}\n",
-          "\\[%{TIMESTAMP_ISO8601:imart.system.timestamp}\\]\t\\[%{DATA:imart.thread}\\]\t%{LOGLEVEL:imart.log.level}[\\s]*?\t%{NOTSPACE:imart.log.logger}\t(?<imart.tenant_id>(|[^\t]*))\t(?<imart.log.id>(|[^\t]*))\t(?<imart.requestid>(|[^\t]*))\t-\t\\[(?<imart.log.message.code>(|[^\t]*))\\]\t(?<imart.log.message.value>(|[^\n]*))"
+          "\\[%{TIMESTAMP_ISO8601:imart.system.timestamp}\\]\t\\[%{DATA:imart.thread}\\]\t%{NUMBER:imart.report_seq}\t%{LOGLEVEL:imart.log.level}[\\s]*?\t%{NOTSPACE:imart.log.logger}\t%{DATA:imart.tenant_id}\t%{WORD:imart.log.id}\t-\t%{DATA:imart.sessionid}\t%{DATA:imart.security.id.account}\t%{DATA:imart.security.id.usertype}\t\\[%{DATA:imart.id}\\]\t%{DATA:imart.log.message.value}\t%{DATA:imart.requestid}"
         ],
         "ignore_missing": true
       }
@@ -44,7 +43,7 @@
     {
       "append": {
         "field": "imart.log_type",
-        "value": "system"
+        "value": "security"
       }
     }
   ],
