@@ -4,7 +4,7 @@ intra-martの出力するログをfilebeatで取得するモジュール
 
 | module | version |
 |-------|----------|
-| filebeat | 6.0.0-beta2 |
+| filebeat | 6.0.0-rc1 |
 
 
 # Dockerfileについて
