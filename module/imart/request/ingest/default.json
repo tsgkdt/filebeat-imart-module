@@ -6,6 +6,7 @@
         "field": "message",
         "patterns": [
           "\\[%{TIMESTAMP_ISO8601:imart.system.timestamp}\\]\t\\[%{DATA:imart.thread}\\]\t%{NUMBER:imart.report_seq}\t%{LOGLEVEL:imart.log.level}[\\s]*?\t%{NOTSPACE:imart.log.logger}\t%{DATA:imart.tenant_id}\t%{WORD:imart.log.id}\t-\t%{DATA:imart.sessionid}\t%{IPORHOST:imart.remote_ip}\t%{WORD:imart.request.method}\t%{URI:imart.request.url}\t%{NOTSPACE:imart.request.querystring}\t%{URI:imart.request.referer}\t%{NUMBER:imart.request.page_time}\t%{TIMESTAMP_ISO8601:imart.request.accept_time}\t%{WORD:imart.request.id}",
+          "\\[%{TIMESTAMP_ISO8601:imart.system.timestamp}\\]\t\\[%{DATA:imart.thread}\\]\t%{NUMBER:imart.report_seq}\t%{LOGLEVEL:imart.log.level}[\\s]*?\t%{NOTSPACE:imart.log.logger}\t%{DATA:imart.tenant_id}\t%{WORD:imart.log.id}\t-\t%{DATA:imart.sessionid}\t%{IPORHOST:imart.remote_ip}\t%{WORD:imart.request.method}\t%{URI:imart.request.url}\t%{NOTSPACE:imart.request.querystring}\t-\t%{NUMBER:imart.request.page_time}\t%{TIMESTAMP_ISO8601:imart.request.accept_time}\t%{WORD:imart.request.id}",
           "\\[%{TIMESTAMP_ISO8601:imart.system.timestamp}\\]\t\\[%{DATA:imart.thread}\\]\t%{NUMBER:imart.report_seq}\t%{LOGLEVEL:imart.log.level}[\\s]*?\t%{NOTSPACE:imart.log.logger}\t%{DATA:imart.tenant_id}\t%{WORD:imart.log.id}\t-\t\t\t\t\t\t\t%{NUMBER:imart.request.page_time}\t\t"
         ],
         "ignore_missing": true
